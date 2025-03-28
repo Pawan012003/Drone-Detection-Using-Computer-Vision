@@ -1,15 +1,5 @@
 # YOLOv7 on Triton Inference Server
-
-Instructions to deploy YOLOv7 as TensorRT engine to [Triton Inference Server](https://github.com/NVIDIA/triton-inference-server).
-
-Triton Inference Server takes care of model deployment with many out-of-the-box benefits, like a GRPC and HTTP interface, automatic scheduling on multiple GPUs, shared memory (even on GPU), dynamic server-side batching, health metrics and memory resource management.
-
-There are no additional dependencies needed to run this deployment, except a working docker daemon with GPU support.
-
 ## Export TensorRT
-
-See https://github.com/WongKinYiu/yolov7#export for more info.
-
 ```bash
 #install onnx-simplifier not listed in general yolov7 requirements.txt
 pip3 install onnx-simplifier 

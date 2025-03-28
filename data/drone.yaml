@@ -1,0 +1,12 @@
+# Drone Detection Dataset
+
+# Path to the training and validation data
+train: D:/drone detection part3/yolov7/drone_dataset/train/images  # Path to training image list
+val: D:/drone detection part3/yolov7/drone_dataset/val/images
+    # Path to validation image list
+
+# Number of classes
+nc: 1
+
+# Class names
+names: ['drone']
