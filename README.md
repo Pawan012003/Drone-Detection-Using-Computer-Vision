@@ -1,4 +1,4 @@
-Drone Detection Using YOLOv7: A Comprehensive Dataset and Model Approach|
+Drone Detection Using YOLOv7: A Comprehensive Dataset and Model Approach
 
 #Abstract --
 Unmanned aerial vehicles (UAVs), commonly known as drones, have become increasingly prevalent in various domains, including surveillance, photography, and delivery services. However, the rapid proliferation of drones raises concerns regarding security and privacy threats. To address these concerns, effective drone detection systems are crucial for identifying and tracking drones in real-time. In this research, we present a comprehensive dataset and propose a state-of-the-art drone detection model using the YOLOv7 architecture.
