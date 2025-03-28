@@ -351,3 +351,5 @@ if __name__ == '__main__':
             np.savetxt(f, y, fmt='%10.4g')  # save
         os.system('zip -r study.zip study_*.txt')
         plot_study_txt(x=x)  # plot
+#   T i m e s t a m p   U p d a t e  
+ 
