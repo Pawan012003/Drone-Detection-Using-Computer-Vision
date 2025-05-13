@@ -1,3 +1,11 @@
+#pyttsx3: For voice alert notifications when a drone is detected.
+#argparse: Used for handling command-line arguments.
+#time: To measure execution time of different parts of the code.
+#Path: To handle file and directory paths.
+#cv2: OpenCV for video processing and displaying images.
+#torch: PyTorch for model inference and GPU management.
+#cudnn: For optimizing computations on NVIDIA GPUs.
+#random: For generating random colors for object bounding boxes.
 import pyttsx3
 import argparse
 import time
@@ -16,7 +24,12 @@ from utils.general import check_img_size, check_requirements, check_imshow, non_
 from utils.plots import plot_one_box
 from utils.torch_utils import select_device, load_classifier, time_synchronized, TracedModel
 
-
+#detect(): The main function that processes input, runs detection, and handles outputs.
+#It takes an optional argument save_img to specify whether to save images.
+#save_img: Determines whether to save the images with detections.
+#webcam: Checks if the source is a webcam, video stream, or URL.
+#save_dir: Creates a directory to save the results (images and labels).
+#increment_path: Ensures unique directory names for each run.
 def detect(save_img=False):
     source, weights, view_img, save_txt, imgsz, trace = opt.source, opt.weights, opt.view_img, opt.save_txt, opt.img_size, not opt.no_trace
     save_img = not opt.nosave and not source.endswith('.txt')  # save inference images
@@ -27,6 +40,9 @@ def detect(save_img=False):
     save_dir = Path(increment_path(Path(opt.project) / opt.name, exist_ok=opt.exist_ok))  # increment run
     (save_dir / 'labels' if save_txt else save_dir).mkdir(parents=True, exist_ok=True)  # make dir
 
+
+#select_device: Selects whether to use CPU or GPU for inference.
+#half: Determines if FP16 (half precision) should be used on GPU for faster processing.
     # Initialize
     set_logging()
     device = select_device(opt.device)
@@ -36,7 +52,9 @@ def detect(save_img=False):
     engine = pyttsx3.init()
     engine.setProperty('rate', 150)  # Speed of speech
 
-
+#attempt_load: Loads the YOLOv7 model from the weights file.
+#stride: The stride of the model (used for input size compatibility).
+#check_img_size: Verifies if the image size is compatible with the model's stride.
     # Load model
     model = attempt_load(weights, map_location=device)
     stride = int(model.stride.max())  
@@ -49,6 +67,7 @@ def detect(save_img=False):
         model.half()  # to FP16
 
     
+    #classify: If set to True, the model will classify objects using a secondary classifier (e.g., ResNet101).
     classify = False
     if classify:
         modelc = load_classifier(name='resnet101', n=2)  # initialize
@@ -56,7 +75,8 @@ def detect(save_img=False):
 
     # changes for real time detection both real time and recorded
     # Set Dataloader
-    if webcam:
+    
+    #Loads the dataset (either images or video stream) based on the source type (webcam, video file, or image).if webcam:
         view_img = check_imshow()
         cudnn.benchmark = True  # set True to speed up constant image size inference
         dataset = LoadStreams(source, img_size=imgsz, stride=stride)
@@ -77,6 +97,8 @@ def detect(save_img=False):
     old_img_w = old_img_h = imgsz
     old_img_b = 1
 
+
+#Processes each frame/image, converting it into a tensor and scaling pixel values from 0-255 to 0-1.
     t0 = time.time()
     for path, img, im0s, vid_cap in dataset:
         img = torch.from_numpy(img).to(device)
@@ -85,6 +107,9 @@ def detect(save_img=False):
         if img.ndimension() == 3:
             img = img.unsqueeze(0)
 
+
+#Warmup: Ensures the model is ready for inference by running a few dummy forward passes.
+#Inference: Performs the actual object detection inference.
         # Warmup
         if device.type != 'cpu' and (old_img_b != img.shape[0] or old_img_h != img.shape[2] or old_img_w != img.shape[3]):
             old_img_b = img.shape[0]
@@ -99,7 +124,7 @@ def detect(save_img=False):
             pred = model(img, augment=opt.augment)[0]
         t2 = time_synchronized()
 
-        # Apply NMS
+#NMS: Reduces duplicate bounding boxes using a confidence threshold (opt.conf_thres) and IoU threshold (opt.iou_thres).# Apply NMS
         pred = non_max_suppression(pred, opt.conf_thres, opt.iou_thres, classes=[4], agnostic=opt.agnostic_nms)
         t3 = time_synchronized()
 
@@ -161,7 +186,11 @@ def detect(save_img=False):
                 engine.say("Warning! Drone detected.")
                 engine.runAndWait()
 
-            # Stream results
+
+
+#cv2.imwrite: Saves the processed image to disk.
+#vid_writer: For saving video streams with bounding boxes and detections.
+  # Stream results
             if view_img:
                 cv2.imshow(str(p), im0)
                 cv2.waitKey(1)  # 1 millisecond

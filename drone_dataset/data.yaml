@@ -1,10 +1,10 @@
-# Drone Detection Dataset Configuration
+# # Drone Detection Dataset Configuration
 
-train: D:/drone detection part3/yolov7/drone_dataset/train  # Path to the training data
-val: D:/drone detection part3/yolov7/drone_dataset/valid    # Path to the validation data
+# train: D:/drone detection part3/yolov7/drone_dataset/train  # Path to the training data
+# val: D:/drone detection part3/yolov7/drone_dataset/valid    # Path to the validation data
 
-# Number of classes
-nc: 2
+# # Number of classes
+# nc: 2
 
-# Class names
-names: ['drone', 'no_drone']
+# # Class names
+# names: ['drone', 'no_drone']

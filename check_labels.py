@@ -19,7 +19,7 @@ def check_labels(label_dir):
                                 y_center = float(y_center)
                                 width = float(width)
                                 height = float(height)
-
+                              
                                 if not (0 <= x_center <= 1 and 0 <= y_center <= 1 and 0 <= width <= 1 and 0 <= height <= 1):
                                     print(f"Invalid values in {file_path}: {line.strip()}")
                             except ValueError:
