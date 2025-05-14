@@ -83,7 +83,7 @@ def detect(save_img=False):
     elif source.isdigit():  # Real-time webcam
         view_img = check_imshow()
         cudnn.benchmark = True
-        dataset = LoadStreams(int(source), img_size=imgsz, stride=stride)
+        dataset = LoadStreams(str(source), img_size=imgsz, stride=stride)
     else:
         dataset = LoadImages(source, img_size=imgsz, stride=stride)
 
