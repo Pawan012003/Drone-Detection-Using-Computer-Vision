@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Credentials Form</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url("/static/background.jpg");
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .welcome-text {
+            text-align: center;
+            font-size: 60px;
+            font-weight: 900;
+            color: #00e5ff;
+            margin-top: 30px;
+            text-shadow: 3px 3px 6px #000;
+            letter-spacing: 2px;
+        }
+
+        .form-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            width: 320px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .form-container h2 {
+            margin-top: 0;
+            text-align: center;
+        }
+
+        .form-container input[type="email"],
+        .form-container input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0 16px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        .form-container input[type="submit"] {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .form-container input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .message {
+            text-align: center;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        .success {
+            color: green;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="welcome-text">Welcome To Drone Detection </div>
+
+    <div class="form-container">
+        <h2>Enter Your Credentials</h2>
+        <form method="POST">
+            <label>Email</label>
+            <input type="email" name="email" placeholder="you@example.com" required>
+            <label>App Password</label>
+            <input type="password" name="app_password" placeholder="Your app password" required>
+            <input type="submit" value="Submit">
+        </form>
+        {% if message %}
+            <div class="message {{ category }}">{{ message }}</div>
+        {% endif %}
+    </div>
+</body>
+</html>
